@@ -16,14 +16,19 @@ import Comando.Condicao;
 import Expressao.*;
 import java.util.*;
 import lp.*;
+import Proc.Procedimento;
 
 public class Interpretador {
 
     private ArquivoFonte arq;
+    private Vector proc;
     private Vector comandos;
     private Stack pilha;
     private String palavraAtual;
     private Expressao raizArvoreExpressao;
+    private boolean fim = false;
+    private boolean maisArgumentos = true;
+    private static final int MAX_VETOR = 10;
 
     public boolean usoucolor;
 
@@ -52,6 +57,11 @@ public class Interpretador {
         pilhaC.push(linha);
 
         do {
+
+            if (comandos.size() == 0) {
+                linha = 0;
+            }
+
             comandoAtual = arq.proximaPalavra();
 
             if (comandoAtual.equals("endp")) {
@@ -135,9 +145,115 @@ public class Interpretador {
                 comandoAtual = arq.proximaPalavra();
                 trataComandoAtrib(linha, variavel);
                 linha++;
+            } else if (comandoAtual.equals("global")) {
+                String[] variaveisGlobal = new String[MAX_VETOR];
+                int k = 0;
+                while (!comandoAtual.equals(";")) {
+                    comandoAtual = arq.proximaPalavra(); 	// variaveis globais
+                    variaveisGlobal[k] = comandoAtual;		// armazena variaveis		
+                    k++;
+                    comandoAtual = arq.proximaPalavra();		// separador (,)
+                }
+                trataComandoGlobal(variaveisGlobal);
+            } else if (comandoAtual.equals("proc")) {
+                String[] parametros = new String[MAX_VETOR];
+                int k = 0;
+                String nome = arq.proximaPalavra();			// <nome>
+                comandoAtual = arq.proximaPalavra(); 		// (
+                comandoAtual = arq.proximaPalavra();			// parametros
+                while (!comandoAtual.equals(")")) {
+                    parametros[k] = comandoAtual;				// armazena parametros
+                    k++;
+                    comandoAtual = arq.proximaPalavra();		// separador (,)
+                    if (comandoAtual.equals(",")) {
+                        comandoAtual = arq.proximaPalavra();
+                    }
+                }
+                trataProcedimento(nome, parametros);
+            } else if (comandoAtual.equals("endproc")) {
+                trataEndproc();
+            } else if (comandoAtual.equals("local")) {
+                String[] variaveisLocal = new String[MAX_VETOR];
+                int k = 0;
+                while (!comandoAtual.equals(";")) {
+                    comandoAtual = arq.proximaPalavra(); 	// variaveis locais
+                    variaveisLocal[k] = comandoAtual;			// armazena variaveis		
+                    k++;
+                    comandoAtual = arq.proximaPalavra();		// separador (,)
+                }
+                trataComandoLocal(variaveisLocal);
+            } else if (comandoAtual.equals("call")) {
+                String nome = arq.proximaPalavra();			// <nome>
+                trataComandoCall(linha, nome);
+                linha++;
             }
 
-        } while (!comandoAtual.equals("endp"));
+        } while ( ! fim );
+    }
+
+    private void trataProcedimento(String nome, String[] parametros) {
+
+        Procedimento p = new Procedimento(nome, parametros);
+        proc.addElement(p);
+    }
+
+    private void trataComandoGlobal(String[] vG) {
+
+        Procedimento.setVariaveisGlobal(vG);
+    }
+
+    private void trataEndproc() {
+
+        Procedimento aux = (Procedimento) proc.lastElement();
+        Vector c = (Vector) comandos.clone();
+        comandos.removeAllElements();
+        aux.setListaComandos(c);
+
+        if (aux.getNome().equals("main")) {
+            fim = true;
+        }
+    }
+
+    private void trataComandoLocal(String[] vL) {
+
+        Procedimento aux = (Procedimento) proc.lastElement();
+        aux.setVariaveisLocal(vL);
+    }
+
+    private void trataComandoCall(int lin, String nome) {
+
+        Expressao[] argumentos = new Expressao[MAX_VETOR];
+        Procedimento proced = (Procedimento) proc.elementAt(0);
+        String comandoAtual;
+        int i = 1,
+                k = 0;
+
+        while (!proced.getNome().equals(nome)) {
+            proced = (Procedimento) proc.elementAt(i);
+            i++;
+        }
+
+        comandoAtual = arq.proximaPalavra();				// (		
+        while (maisArgumentos) {
+            maisArgumentos = false;
+            trataExpressao();
+            argumentos[k] = raizArvoreExpressao;
+            k++;
+        }
+        maisArgumentos = true;
+        ComandoCall c = new ComandoCall(lin, proced, argumentos, MAX_VETOR);
+        comandos.addElement(c);
+
+    }
+
+    private void trataExpressao() {
+        palavraAtual = arq.proximaPalavra();
+        pilha = new Stack();
+        expressaoLogica();
+        raizArvoreExpressao = (Expressao) pilha.pop();
+        if (palavraAtual.equals(",")) {
+            maisArgumentos = true;
+        }
     }
 
     private void trataComandoWhile(int lin) {
