@@ -1,5 +1,8 @@
+<img src="https://i.imgur.com/YjaT5gQ.png" style="float: right">  
+
 # Tiny
-<img src="https://i.imgur.com/WTOIKX4.png" style="float: right">  
+<img src="https://i.imgur.com/WTOIKX4.png" style="float: right"> 
+
 Tiny is a fictional programming language for educational purposes  
 
 # Syntax
