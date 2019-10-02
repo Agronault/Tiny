@@ -1,32 +1,40 @@
-   package Comando;
+package Comando;
 
-	import Variavel.*;
-	import Expressao.*;
-	import Proc.*;
-	 
-    public class ComandoCall extends Comando {
-   
-      Procedimento procedimento;
-		Expressao [] arg;
-		int tamanho;
-   	
-      public ComandoCall(int lin, Procedimento proc, Expressao [] a, int tam ) {
-            
-      }
-   
-       public int executa( Memoria local, Memoria global) {
+import Variavel.*;
+import Expressao.*;
+import Proc.*;
 
-			double [] argumentos = new double[this.tamanho];
-			int i= 0;
-			
-			while( this.arg[i] != null ){
-				//preencher o vetor de argumentos
-				i++;
-			}
+public class ComandoCall extends Comando {
 
-			this.procedimento.executa( argumentos );
-         
-			return linha+1;
-      }
-   }
+    Procedimento procedimento;
+    Expressao[] arg;
+    int tamanho;
 
+    public ComandoCall(int lin, Procedimento proc, Expressao[] a, int tam) {
+        this.linha = lin;
+        this.procedimento = proc;
+        this.arg = a;
+        this.tamanho = tam;
+    }
+
+    public int executa(Memoria local, Memoria global) {
+
+        double[] argumentos = new double[this.tamanho];
+        int i = 0;
+
+        while (this.arg[i] != null) {
+            //preencher o vetor de argumentos
+            argumentos[i] = arg[i].avalia();
+            i++;
+        }
+
+        this.procedimento.executa(argumentos);
+
+        return linha + 1;
+    }
+
+    @Override
+    public int executa() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+}

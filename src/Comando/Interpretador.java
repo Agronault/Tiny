@@ -355,12 +355,6 @@ public class Interpretador {
         comandos.addElement(c);
     }
 
-    private void trataExpressao() {
-        palavraAtual = arq.proximaPalavra();
-        pilha = new Stack();
-        expressaoLogica();
-        raizArvoreExpressao = (Expressao) pilha.pop();
-    }
 
     private void expressaoLogica() {
         expressaoComparativa();
