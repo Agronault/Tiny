@@ -15,7 +15,7 @@ public class ExpBinaria extends Expressao {
     }
 
     @Override
-    public double avalia() {
+    public double avalia(Memoria local, Memoria global) {
         
         cmd1= (Expressao) exp2;
 
@@ -23,13 +23,13 @@ public class ExpBinaria extends Expressao {
         
         if (null != op) switch (op) {
             case "*":
-                return cmd1.avalia() * cmd2.avalia();
+                return cmd1.avalia(local, global) * cmd2.avalia(local, global);
             case "/":
-                return cmd1.avalia() / cmd2.avalia();
+                return cmd1.avalia(local, global) / cmd2.avalia(local, global);
             case "+":
-                return cmd1.avalia() + cmd2.avalia();
+                return cmd1.avalia(local, global) + cmd2.avalia(local, global);
             case "-":
-                return cmd1.avalia() - cmd2.avalia();
+                return cmd1.avalia(local, global) - cmd2.avalia(local, global);
             default:
                 break;
         }

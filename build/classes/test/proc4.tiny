@@ -3,6 +3,7 @@ global z;
 proc teste( a )
 	if a > 0 then
    	writeStr("a maior que zero");
+        writeln;
 	else
    	read(a);
 	  	writeVar(a);

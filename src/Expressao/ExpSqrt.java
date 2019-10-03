@@ -11,13 +11,17 @@ public class ExpSqrt extends Expressao {
     }
 
     @Override
-    public double avalia() {
+    public double avalia(Memoria local, Memoria global) {
         double valor;
 
         if (sqrt.charAt(0) >= 0 && sqrt.charAt(0) <= 9) {
             valor = Double.parseDouble(sqrt);
         } else {
-            valor = Variaveis.var[sqrt.charAt(0) - 97];
+            if(local.var[sqrt.charAt(0)-97] != Double.NEGATIVE_INFINITY){
+             valor = local.var[sqrt.charAt(0)-97];
+            }else{
+             valor = global.var[sqrt.charAt(0)-97];
+            }
         }
 
         return Math.sqrt(valor);

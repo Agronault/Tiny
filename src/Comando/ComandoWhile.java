@@ -18,8 +18,8 @@ public class ComandoWhile extends Comando {
     }
 
     @Override
-    public int executa() {
-        if (exp.avalia() == 0) {
+    public int executa(Memoria local, Memoria global) {
+        if (exp.avalia(local, global) == 0) {
             return linhaEnd + 1;
         }
             return linha + 1;

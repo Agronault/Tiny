@@ -1,6 +1,6 @@
 package Comando;
 
-import Variavel.Variaveis;
+import Variavel.*;
 import java.io.*;  
 import java.util.*;
 
@@ -16,7 +16,7 @@ class ComandoSetColor extends Comando {
       cor = color;
    }
    
-   public int executa() {
+   public int executa(Memoria local, Memoria global) {
       Variaveis.colorset= cor;
       return linha+1;
    }

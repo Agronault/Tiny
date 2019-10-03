@@ -1,4 +1,5 @@
 package Comando;
+import Variavel.*;
 
 public class ComandoEndw extends Comando {
 
@@ -10,7 +11,7 @@ public class ComandoEndw extends Comando {
     }
 
     @Override
-    public int executa() {
+    public int executa(Memoria local, Memoria global) {
         return linhaW;
     }
 }

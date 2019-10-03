@@ -2,6 +2,7 @@ package Comando;
 
 import java.io.*;  
 import java.util.*;
+import Variavel.*;
 
 import lp.*; 
 
@@ -14,7 +15,7 @@ class ComandoWriteErr extends Comando {
       texto = txt;
    }
    
-   public int executa() {
+   public int executa(Memoria local, Memoria global) {
       System.err.printf(texto);
       return linha+1;
    }

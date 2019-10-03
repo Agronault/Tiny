@@ -3,7 +3,8 @@ package Comando;
 import java.io.*;  
 import java.util.*;
 
-import lp.*; 
+import lp.*;
+import Variavel.*;
 
 public class ComandoWriteStr extends Comando {
    
@@ -15,7 +16,7 @@ public class ComandoWriteStr extends Comando {
       texto = txt;
    }
    
-   public int executa() {
+   public int executa(Memoria local, Memoria global) {
       System.out.printf(texto);
       return linha+1;
    }

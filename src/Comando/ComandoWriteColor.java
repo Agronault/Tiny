@@ -1,6 +1,6 @@
 package Comando;
 
-import Variavel.Variaveis;
+import Variavel.*;
 import java.io.*;  
 import java.util.*;
 
@@ -18,7 +18,7 @@ class ComandoWriteColor extends Comando {
       cor=color;
    }
    
-   public int executa() {
+   public int executa(Memoria local, Memoria global) {
        
        
        if(cor.equals("default") || cor.equals("d")){

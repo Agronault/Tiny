@@ -2,7 +2,7 @@ package Comando;
 
 import java.io.*;
 import java.util.*;
-import Variavel.Variaveis;
+import Variavel.*;
 
 import lp.*;
 
@@ -16,13 +16,22 @@ public class ComandoRead extends Comando {
         variavel = txt.charAt(0);
     }
 
-    public int executa() {
+    public int executa(Memoria local, Memoria global) {
 
-        try {
-            Variaveis.var[(int) variavel - 97] = Float.parseFloat(teclado.readLine());
-        } catch (Exception e) {
-            System.out.println("ERRO: " + e);
+        if (local.var[variavel - 97] != Double.NEGATIVE_INFINITY) {
+            try {
+                local.var[(int) variavel - 97] = Float.parseFloat(teclado.readLine());
+            } catch (Exception e) {
+                System.out.println("ERRO: " + e);
+            }
+        } else {
+            try {
+                global.var[(int) variavel - 97] = Float.parseFloat(teclado.readLine());
+            } catch (Exception e) {
+                System.out.println("ERRO: " + e);
+            }
         }
+
         return linha + 1;
     }
 }

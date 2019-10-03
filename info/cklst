@@ -1,0 +1,25 @@
+ExpBinaria	OK
+ExpComparativa	OK
+ExpConstante	OK
+ExpLogica	OK
+ExpSqrt		OK		
+ExpVariavel	OK
+Exp		OK
+
+Atrib
+Call		OK
+Else		OK
+Endfor		OK
+Endp		OK
+Endw		OK
+For		OK
+If		OK
+Read		OK
+SetColor	OK
+While		OK
+WriteColor	OK
+WriteErr	OK
+WriteStr	OK
+WriteVar	OK
+Writeln		OK
+Interpretador	OK

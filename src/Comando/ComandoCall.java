@@ -24,7 +24,7 @@ public class ComandoCall extends Comando {
 
         while (this.arg[i] != null) {
             //preencher o vetor de argumentos
-            argumentos[i] = arg[i].avalia();
+            argumentos[i] = arg[i].avalia(local, global);
             i++;
         }
 
@@ -33,8 +33,4 @@ public class ComandoCall extends Comando {
         return linha + 1;
     }
 
-    @Override
-    public int executa() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 }

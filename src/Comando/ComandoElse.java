@@ -15,7 +15,7 @@ public class ComandoElse extends Comando implements Condicao {
     linhaEnd=lin;
     }
 
-    public int executa() {
+    public int executa(Memoria local, Memoria global) {
             return linhaEnd;
     }
 }

@@ -19,9 +19,9 @@ public class ComandoIf extends Comando implements Condicao {
         linhaEnd=lin;
     }
 
-    public int executa() {
+    public int executa(Memoria local, Memoria global) {
         
-        if(exp.avalia()==0){
+        if(exp.avalia(local, global)==0){
         return linhaEnd;
         }else{
         return linhaIf+1;

@@ -11,9 +11,13 @@
       }
    
       @Override
-       public double avalia() {
+       public double avalia(Memoria local, Memoria global) {
            
-         return Variaveis.var[variavel-97];
+         if(local.var[variavel-97] != Double.NEGATIVE_INFINITY){
+             return local.var[variavel-97];
+         }else{
+             return global.var[variavel-97];
+         }
       }
       
    }

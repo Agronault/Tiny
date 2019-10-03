@@ -17,7 +17,7 @@ public class ExpComparativa extends Expressao {
     }
 
     @Override
-    public double avalia() {
+    public double avalia(Memoria local, Memoria global) {
 
         boolean v = false;
         double valor = FALSE;
@@ -27,22 +27,22 @@ public class ExpComparativa extends Expressao {
 
         switch (op) {
             case "=":
-                v = opr1.avalia() == opr2.avalia();
+                v = opr1.avalia(local, global) == opr2.avalia(local, global);
                 break;
             case "<>":
-                v = opr1.avalia() != opr2.avalia();
+                v = opr1.avalia(local, global) != opr2.avalia(local, global);
                 break;
             case ">":
-                v = opr1.avalia() > opr2.avalia();
+                v = opr1.avalia(local, global) > opr2.avalia(local, global);
                 break;
             case "<":
-                v = opr1.avalia() < opr2.avalia();
+                v = opr1.avalia(local, global) < opr2.avalia(local, global);
                 break;
             case "<=":
-                v = opr1.avalia() <= opr2.avalia();
+                v = opr1.avalia(local, global) <= opr2.avalia(local, global);
                 break;
             case ">=":
-                v = opr1.avalia() >= opr2.avalia();
+                v = opr1.avalia(local, global) >= opr2.avalia(local, global);
                 break;
         }
 
