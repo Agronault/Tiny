@@ -24,8 +24,9 @@ endproc
 proc main()
   local x,y;
   writeStr("x=")
-  read(x);
-  writeStr("y=")
+  popup[x]("digite um valor")
+  popup("valor digitado com sucesso")
+  writeStr==("y=")
   read(y);
   call imprime_asteriscos(x);
   call imprime_dolar(y);
